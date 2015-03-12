@@ -34,21 +34,21 @@ if (!isset($CONFIG)) {
  *
  * @global string $CONFIG->dbuser
  */
-$CONFIG->dbuser = 'root';
+$CONFIG->dbuser = get_env('ELGG_DB_USER');
 
 /**
  * The database password
  *
  * @global string $CONFIG->dbpass
  */
-$CONFIG->dbpass = '';
+$CONFIG->dbpass = get_env('ELGG_DB_PASS');
 
 /**
  * The database name
  *
  * @global string $CONFIG->dbname
  */
-$CONFIG->dbname = 'elgg';
+$CONFIG->dbname = get_env('ELGG_DB_NAME');
 
 /**
  * The database host.
@@ -57,7 +57,7 @@ $CONFIG->dbname = 'elgg';
  *
  * @global string $CONFIG->dbhost
  */
-$CONFIG->dbhost = 'localhost';
+$CONFIG->dbhost = get_env('ELGG_DB_HOST');
 
 /**
  * The database prefix
@@ -68,7 +68,7 @@ $CONFIG->dbhost = 'localhost';
  *
  * @global string $CONFIG->dbprefix
  */
-$CONFIG->dbprefix = 'elgg';
+$CONFIG->dbprefix = get_env('ELGG_DB_PREFIX');
 
 /**
  * Multiple database connections

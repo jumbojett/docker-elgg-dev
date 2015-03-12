@@ -33,8 +33,7 @@ RUN chmod 755 /*.sh
 ADD apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
-# Configure /app folder with sample app
-RUN git clone -b 1.10 --single-branch https://github.com/Elgg/Elgg.git /app
+# Create a space for Elgg
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 
 ########################################
@@ -53,39 +52,13 @@ RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/c
 # PHPMYADMIN MODIFY END
 ########################################
 
-# Install Composer
+# Install Composer. We run it in run.sh so the /app volume is mounted
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install Composer Deps for Elgg
-RUN cd /app && composer install
-
-########################################
-# ELGG MODIFY BEGIN
-########################################
-
-# Configure Elgg to connect to local DB
-ADD settings.php /app/engine/settings.php
-
-# Copy .htaccess
-RUN mv /app/install/config/htaccess.dist /app/.htaccess
-
-# The user will have to complete an install adding some special scripting to check 
-RUN mv /app/index.php /app/tmp
-ADD check_install.php /
-RUN cat /check_install.php /app/tmp > /app/index.php && rm -f /app/tmp
-
-# Copy our new setup template files
-RUN rm -f /app/views/installation/forms/install/template.php
-ADD template.php /app/views/installation/forms/install/
-
-########################################
-# ELGG MODIFY END
-########################################
 
 # Media directory is the data directory
 RUN chown -R www-data:www-data /media
 
-#Enviornment variables to configure php
+# Enviornment variables to configure php and elgg
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
@@ -97,7 +70,12 @@ RUN rm -rf /tmp/* /var/tmp/*
 #VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
 # Add volume for elgg
-VOLUME  [ "/app/mod" ]
+VOLUME  [ "/app" ]
 
+# Install Elgg and run the servers
 EXPOSE 80 3306
+ADD install.php /
+ADD settings.php /
+ADD check_install.php /
+ADD settings_rewrite_url.php /
 CMD ["/run.sh"]
