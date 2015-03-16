@@ -6,6 +6,10 @@ if [ ! -f /app/composer.json ]; then
     exit 1
 fi
 
+pushd /app
+composer update 
+popd
+
 # decide if we're going to show credentials after creation
 SHOW_CREDENTIALS=0
 if [ -z "${MYSQL_USER}" -o -z "${MYSQL_PASS}" \
@@ -62,10 +66,10 @@ else
 fi
 
 # install composer deps
-echo "Installing composer deps"
-pushd /app
-composer install
-popd
+#echo "Installing composer deps"
+#pushd /app
+#composer install
+#popd
 
 echo "Testing Elgg installation"
 php /check_install.php > /dev/null 2>&1
@@ -73,9 +77,10 @@ php /check_install.php > /dev/null 2>&1
 if [ "$?" -ne 0 ]; then
     echo "Needs installation"
     if [ -f "/app/engine/settings.php" -o -f "/app/.htaccess" ]; then
-        if [ "$REINSTALL" -eq 1 ]; then
+	export REINSTALL=${REINSTALL:-0}
+        if [ $REINSTALL -eq 1 ]; then
             echo "Removing settings.php and .htaccess files and reinstalling as requested..."
-            rm /app/engine/settings.php
+            rm -f /app/engine/settings.php /app/.htaccess
             php -d error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED" /install.php
             if [ "$?" -ne 0 ]; then
                 echo "Error installing."

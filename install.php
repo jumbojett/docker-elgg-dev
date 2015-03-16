@@ -8,7 +8,14 @@ if (PHP_SAPI !== 'cli') {
 	exit(1);
 }
 
-require_once "/app/install/ElggInstaller.php";
+if (file_exists("/app/install/ElggInstaller.php")) {
+	require_once "/app/install/ElggInstaller.php";
+} else if (file_exists("/app/engine/classes/ElggInstaller.php")) {
+	require_once "/app/engine/classes/ElggInstaller.php";
+} else {
+	echo "Cannot find Elgg installer.";
+	exit(1);
+}
 
 $installer = new ElggInstaller();
 
@@ -18,8 +25,8 @@ $params = array(
 	'dbuser' => getenv('ELGG_DB_USER'),
 	'dbpassword' => getenv('ELGG_DB_PASS'),
 	'dbname' => getenv('ELGG_DB_NAME'),
-    'dbhost' => getenv('ELGG_DB_HOST'),
-    'dbprefix' => getenv('ELGG_DB_PREFIX'),
+	'dbhost' => getenv('ELGG_DB_HOST'),
+	'dbprefix' => getenv('ELGG_DB_PREFIX'),
 
 	// site settings
 	'sitename' => getenv('ELGG_SITE_NAME'),
@@ -33,7 +40,7 @@ $params = array(
 	'username' => getenv('ELGG_USERNAME'),
 	'password' => getenv('ELGG_PASSWORD'),
     
-    'path' => getenv('ELGG_PATH')
+	'path' => getenv('ELGG_PATH')
 );
 
 // exit early if errors
