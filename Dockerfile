@@ -1,8 +1,6 @@
 FROM ubuntu:trusty
 MAINTAINER Mike Jett <mjett@mitre.org>
 
-ENV http_proxy http://10.22.123.3:8080
-
 # Linux hosts with kernel > 3.15 have problems modifying users.
 # This is the suggested fix
 # See https://github.com/docker/docker/issues/6345
