@@ -69,7 +69,7 @@ RUN apt-get install -yq nodejs build-essential
 RUN npm install -g npm
 
 # install test dependencies
-RUN npm install -g jasmine-core requirejs karma karma-cli karma-jasmine karma-requirejs phantomjs
+RUN npm install -g jasmine-core requirejs karma karma-cli karma-jasmine karma-requirejs karma-phantomjs-launcher phantomjs
 
 # Media directory is the data directory
 RUN chown -R www-data:www-data /media
