@@ -61,6 +61,10 @@ RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/c
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN curl -osS https://scrutinizer-ci.com/ocular.phar
 
+# Install sphinx
+RUN easy_install --quiet "Sphinx==1.1.3"
+RUN easy_install --quiet "sphinx-intl"
+
 # install from nodesource using apt-get
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
 RUN curl -sSL https://deb.nodesource.com/setup | bash
