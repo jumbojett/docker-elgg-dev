@@ -68,7 +68,7 @@ RUN apt-get install -yq nodejs build-essential
 # fix npm - not the latest version installed by apt-get
 RUN npm install -g npm
 
-RUN npm install -g karma karma-cli phantomjs
+RUN npm install -g karma karma-cli karma-jasmine requirejs phantomjs
 # Media directory is the data directory
 RUN chown -R www-data:www-data /media
 
