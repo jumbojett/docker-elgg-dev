@@ -68,11 +68,13 @@ RUN apt-get install -yq nodejs build-essential
 # fix npm - not the latest version installed by apt-get
 RUN npm install -g npm
 
-RUN npm install -g karma karma-cli karma-jasmine requirejs phantomjs
+# install test dependencies
+RUN npm install -g karma karma-cli karma-jasmine require requirejs phantomjs
+
 # Media directory is the data directory
 RUN chown -R www-data:www-data /media
 
-# Enviornment variables to configure php and elgg
+# Environment variables to configure php and elgg
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
