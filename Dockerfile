@@ -89,7 +89,7 @@ RUN rm -rf /tmp/* /var/tmp/*
 VOLUME  [ "/app" ]
 
 # Install Elgg and run the servers
-EXPOSE 80 3306
+EXPOSE 80 3306 9876
 ADD install.php /
 ADD check_install.php /
 ADD settings_rewrite_url.php /
