@@ -59,7 +59,7 @@ RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/c
 
 # Install Composer. We run it in run.sh so the /app volume is mounted
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
+RUN composer install
 # install from nodesource using apt-get
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
 RUN curl -sSL https://deb.nodesource.com/setup | bash
