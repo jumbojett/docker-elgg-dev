@@ -9,7 +9,7 @@ RUN mv /usr/bin/chfn /usr/bin/chfn.real && ln -s /bin/true /usr/bin/chfn
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-  apt-get -y install python-setuptools supervisor phpmyadmin apache2-utils git php5-xdebug apache2 curl php5-gd libapache2-mod-php5 mysql-server php5-mysql php5-curl pwgen php-apc php5-mcrypt && \
+  apt-get -y install python-setuptools phpunit supervisor phpmyadmin apache2-utils git php5-xdebug apache2 curl php5-gd libapache2-mod-php5 mysql-server php5-mysql php5-curl pwgen php-apc php5-mcrypt && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # package install is finished, clean up
