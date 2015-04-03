@@ -59,7 +59,6 @@ RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/c
 
 # Install Composer. We run it in run.sh so the /app volume is mounted
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN curl -osS https://scrutinizer-ci.com/ocular.phar
 
 # Install sphinx
 RUN easy_install --quiet "Sphinx==1.1.3"
