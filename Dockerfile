@@ -9,7 +9,7 @@ RUN mv /usr/bin/chfn /usr/bin/chfn.real && ln -s /bin/true /usr/bin/chfn
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-  apt-get -y install python-setuptools supervisor phpmyadmin apache2-utils git php5-xdebug apache2 curl php5-gd libapache2-mod-php5 mysql-server php5-mysql php5-curl pwgen php-apc php5-mcrypt && \
+  apt-get -y install supervisor phpmyadmin apache2-utils git php5-xdebug apache2 curl php5-gd libapache2-mod-php5 mysql-server php5-mysql php5-curl pwgen php-apc php5-mcrypt && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # package install is finished, clean up
@@ -59,10 +59,6 @@ RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/c
 
 # Install Composer. We run it in run.sh so the /app volume is mounted
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install sphinx
-RUN easy_install --quiet "Sphinx==1.1.3"
-RUN easy_install --quiet "sphinx-intl"
 
 # install from nodesource using apt-get
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
