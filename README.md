@@ -12,3 +12,7 @@ Elgg development environment on docker.
    if they weren't supplied via enviroment variables.
 5. Depending on how you're running docker, you may need to expose ports. You can easily
    expose all ports by using `docker run -P ...`.
+
+# Example
+Replace `/path/to/elgg/clone/` with the actual path to you Elgg clone. Note that this will overwrite your settings.php and htaccess files!
+`docker run -p 8080:80 -e REINSTALL=1 -e ELGG_PASSWORD='asdfjkl' -v /Users/brett/Devel/elgg/:/app jumbojett/elgg-dev-environment`
