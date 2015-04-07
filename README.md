@@ -7,8 +7,8 @@ Elgg development environment on docker.
    and use boot2docker, remember it mounts your C:\Users or /Users directory in the 
    dev VM, so adjust paths accordingly.
 3. There are a number of environment variables that affect how the the container is built.
-   See run.sh for a list.
-4. After the container is built, the credentials for Elgg and MySQL if not supplied are printed
+   See below for a list.
+4. After the container is built, the credentials for Elgg and MySQL are printed
    if they weren't supplied via enviroment variables.
 5. Depending on how you're running docker, you may need to expose ports. You can easily
    expose all ports by using `docker run -P ...`.
@@ -17,11 +17,12 @@ Elgg development environment on docker.
    /phpmyadmin for a phpmyadmin installation. Check the docker screen for the 
    mysql root password.
 
-# Environmental Vars
+# Environment Vars
 
-Setting environmental vars with -e VAR="value" affects the behavior of the installation.
-If none are given, defaults are used and output on the screen
+Setting environment vars with `-e VAR="value"` in the run command affects the behavior of the installation.
+If none are given, defaults are used and output on the screen.
 
+* `UPDATE_COMPOSER` Should composer packages be updated automatically? (Defaults to 1, set to 0 to disable)
 * `MYSQL_USER` The DB username to create
 * `MYSQL_PASS` The DB password to set on the created user
 * `ELGG_DB_HOST` The DB host Elgg will use
@@ -39,10 +40,10 @@ If none are given, defaults are used and output on the screen
 * `ELGG_PASSWORD` The password for the admin user
 * `ELGG_PATH` The location Elgg is installed (Don't change this unless you modify run.sh and the installation)
 * `ELGG_SITE_ACCESS` The default site access
-* `REINSTALL` Should Elgg force a reinstall? THIS WILL DELETE engine/settings.php AND .htaccess!
+* `REINSTALL` Should Elgg force a reinstall? Defaults to 0. Set to 1 to enable. ENABLING WILL DELETE engine/settings.php AND .htaccess!
 
 # Example
 Replace `/path/to/elgg/clone/` with the actual path to you Elgg clone. Note that this will overwrite your settings.php and htaccess files!
 
 
-`docker run -p 8080:80 -e REINSTALL=1 -e ELGG_PASSWORD='asdfjkl' -v /Users/brett/Devel/elgg/:/app jumbojett/elgg-dev-environment`
+`docker run -p 8080:80 -e REINSTALL=1 -e ELGG_PASSWORD='asdfjkl' -v /path/to/elgg/clone/:/app jumbojett/elgg-dev-environment`

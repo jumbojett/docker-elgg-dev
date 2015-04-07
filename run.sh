@@ -6,9 +6,13 @@ if [ ! -f /app/composer.json ]; then
     exit 1
 fi
 
-pushd /app
-composer update 
-popd
+# should we update composer packages?
+export UPDATE_COMPOSER=${UPDATE_COMPOSER:-1}
+if [ $UPDATE_COMPOSER -eq 1 ]; then
+	pushd /app
+	composer update 
+	popd
+fi
 
 # decide if we're going to show credentials after creation
 SHOW_CREDENTIALS=0
