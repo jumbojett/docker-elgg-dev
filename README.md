@@ -15,4 +15,6 @@ Elgg development environment on docker.
 
 # Example
 Replace `/path/to/elgg/clone/` with the actual path to you Elgg clone. Note that this will overwrite your settings.php and htaccess files!
+
+
 `docker run -p 8080:80 -e REINSTALL=1 -e ELGG_PASSWORD='asdfjkl' -v /Users/brett/Devel/elgg/:/app jumbojett/elgg-dev-environment`
