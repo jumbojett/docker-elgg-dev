@@ -62,8 +62,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # install from nodesource using apt-get
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
-RUN curl -sSL https://deb.nodesource.com/setup | bash
-RUN apt-get install -yq nodejs build-essential
+RUN curl -sSL https://deb.nodesource.com/setup | bash && apt-get install -yq nodejs build-essential
  
 # fix npm - not the latest version installed by apt-get
 RUN npm install -g npm
