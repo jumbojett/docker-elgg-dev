@@ -64,6 +64,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
 RUN curl -sSL https://deb.nodesource.com/setup | bash && apt-get install -yq nodejs build-essential
  
+# Translate all git:// to https://
+# Thank you http://stackoverflow.com/questions/15903275/git-is-blocked-how-to-install-npm-modules
+RUN git config --global url."https://".insteadOf git://
+
 # fix npm - not the latest version installed by apt-get
 RUN npm install -g npm
 
