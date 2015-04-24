@@ -13,8 +13,12 @@ ADD xdebug.ini /etc/php5/mods-available/xdebug.ini
 # Enable phpmyadmin
 RUN printf "Include /etc/phpmyadmin/apache.conf\n" >> /etc/apache2/apache2.conf
 
+# Set up phpmyadmin
+ADD phpmyadmin_setup.sh /phpmyadmin_setup.sh
+RUN chmod 755 /*.sh
+CMD ["/phpmyadmin_setup.sh"]
+
 # Allow developer unauthenticated access to phpmyadmin
-RUN sudo dpkg-reconfigure phpmyadmin
 ADD phpmyadmin.conf /
 RUN rm -f /etc/phpmyadmin/config.inc.php && mv phpmyadmin.conf /etc/phpmyadmin/config.inc.php
 
