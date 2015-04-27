@@ -37,6 +37,8 @@ VOLUME  [ "/app" ]
 
 # Install Elgg and run the servers
 EXPOSE 80 3306 9876
+ADD run.sh /
+RUN chmod 755 /*.sh
 ADD install.php /
 ADD check_install.php /
 ADD settings_rewrite_url.php /
