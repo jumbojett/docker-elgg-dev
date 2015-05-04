@@ -69,6 +69,8 @@ else
     echo "=> Using an existing volume of MySQL"
 fi
 
+service mysql restart
+
 # install composer deps
 #echo "Installing composer deps"
 #pushd /app
@@ -76,7 +78,7 @@ fi
 #popd
 
 echo "Testing Elgg installation"
-php /check_install.php > /dev/null 2>&1
+php /check_install.php 
 
 if [ "$?" -ne 0 ]; then
     echo "Needs installation"
@@ -126,6 +128,5 @@ fi
 # start services
 #exec supervisord -n
 service apache2 start
-service mysql start
 
 tail -f /var/log/apache2/*
