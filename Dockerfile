@@ -2,7 +2,7 @@ FROM akudan/docker-elgg-base
 MAINTAINER Mike Jett <mjett@mitre.org>
 
 # Install packages
-RUN apt-get update && apt-get -y install phpmyadmin php5-xdebug
+RUN apt-get update && apt-get -y install phpmyadmin php5-xdebug expect
 
 # package install is finished, clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -12,11 +12,7 @@ ADD xdebug.ini /etc/php5/mods-available/xdebug.ini
 
 # Enable phpmyadmin
 RUN printf "Include /etc/phpmyadmin/apache.conf\n" >> /etc/apache2/apache2.conf
-
-# Set up phpmyadmin
-ADD phpmyadmin_setup.sh /phpmyadmin_setup.sh
-RUN chmod 755 /*.sh
-CMD ["/phpmyadmin_setup.sh"]
+RUN dpkg-reconfigure phpmyadmin
 
 # Allow developer unauthenticated access to phpmyadmin
 ADD phpmyadmin.conf /
