@@ -69,10 +69,10 @@ RUN curl -sSL https://deb.nodesource.com/setup | bash && apt-get install -yq nod
 RUN git config --global url."https://".insteadOf git://
 
 # fix npm - not the latest version installed by apt-get
-RUN npm install -g npm
+RUN npm config set strict-ssl false --global && npm install -g npm
 
 # install test dependencies
-#RUN npm install -g jasmine-core requirejs karma karma-cli karma-jasmine karma-requirejs karma-phantomjs-launcher phantomjs define
+#RUN npm config set strict-ssl false --global && npm install -g jasmine-core requirejs karma karma-cli karma-jasmine karma-requirejs karma-phantomjs-launcher phantomjs define
 
 # Media directory is the data directory
 RUN chown -R www-data:www-data /media
