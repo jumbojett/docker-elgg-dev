@@ -55,7 +55,7 @@ export ELGG_SITE_ACCESS=2
 # rewrite 
 sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILESIZE}/" \
     -e "s/^post_max_size.*/post_max_size = ${PHP_POST_MAX_SIZE}/" /etc/php5/apache2/php.ini
-    
+
 # test MySQL and set up if needed
 VOLUME_HOME="/var/lib/mysql"
 if [[ ! -f $VOLUME_HOME/ibdata1 ]] && [[ ! -d $VOLUME_HOME/mysql ]]; then
@@ -69,13 +69,8 @@ else
     echo "=> Using an existing volume of MySQL"
 fi
 
-service mysql restart
-
-# install composer deps
-#echo "Installing composer deps"
-#pushd /app
-#composer install
-#popd
+#start mysql so we can check if elgg is installed.
+supervisorctl start mysql
 
 echo "Testing Elgg installation"
 php /check_install.php 
@@ -116,6 +111,8 @@ if [ "$?" -ne 0 ]; then
     fi
 fi
 
+# stop again so the main process can manage it.
+supervisorctl stop mysql
 
 if [ "${SHOW_CREDENTIALS}" -eq 1 ]; then
     echo "Elgg and MySQL have been installed with the following credentials:"
@@ -125,8 +122,5 @@ if [ "${SHOW_CREDENTIALS}" -eq 1 ]; then
     echo "  MySQL password: ${MYSQL_PASS}"
 fi
 
-# start services
-#exec supervisord -n
-service apache2 start
-
-tail -f /var/log/apache2/*
+# start all services
+exec supervisord -n
