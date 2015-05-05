@@ -2,7 +2,7 @@ FROM akudan/docker-elgg-base
 MAINTAINER Mike Jett <mjett@mitre.org>
 
 # Install packages
-RUN apt-get update && apt-get -y install phpmyadmin php5-xdebug expect
+RUN apt-get update && apt-get -y install phpmyadmin php5-xdebug
 
 # package install is finished, clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
