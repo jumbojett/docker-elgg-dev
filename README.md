@@ -47,3 +47,4 @@ Replace `/path/to/elgg/clone/` with the actual path to you Elgg clone. Note that
 
 
 `docker run -p 8080:80 -e REINSTALL=1 -e ELGG_PASSWORD='asdfjkl' -v /path/to/elgg/clone/:/app jumbojett/elgg-dev-environment`
+
