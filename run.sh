@@ -70,7 +70,7 @@ else
 fi
 
 #start mysql so we can check if elgg is installed.
-supervisorctl start mysql
+service mysql start
 
 echo "Testing Elgg installation"
 php /check_install.php 
@@ -112,7 +112,9 @@ if [ "$?" -ne 0 ]; then
 fi
 
 # stop again so the main process can manage it.
-supervisorctl stop mysql
+#service mysql stop
+# the debian mysql user's password is wrong
+mysqladmin shutdown
 
 if [ "${SHOW_CREDENTIALS}" -eq 1 ]; then
     echo "Elgg and MySQL have been installed with the following credentials:"
