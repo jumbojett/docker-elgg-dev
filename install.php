@@ -39,7 +39,6 @@ $params = array(
 	'email' => getenv('ELGG_EMAIL'),
 	'username' => getenv('ELGG_USERNAME'),
 	'password' => getenv('ELGG_PASSWORD'),
-    
 	'path' => getenv('ELGG_PATH')
 );
 

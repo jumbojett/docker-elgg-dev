@@ -36,13 +36,13 @@ export ELGG_DB_NAME=${ELGG_DB_NAME:-"elgg"}
 
 export ELGG_SITE_NAME=${ELGG_SITE_NAME:-"Elgg Site"}
 # Elgg requires a FQDN for the email address.
-export ELGG_SITE_EMAIL=${ELGG_SITE_EMAIL:-"elgg@${HOSTNAME}.docker"}
+export ELGG_SITE_EMAIL=${ELGG_SITE_EMAIL:-"no-reply@${HOSTNAME}"}
 export ELGG_WWW_ROOT=${ELGG_WWW_ROOT:-"http://localhost:${PORT}"}
 export ELGG_DATA_ROOT=${ELGG_DATA_ROOT:-"/media/"}
 
 # admin user setup
 export ELGG_DISPLAY_NAME=${ELGG_DISPLAY_NAME:-"admin"}
-export ELGG_EMAIL=${ELGG_EMAIL:-"elgg_admin@${HOSTNAME}.docker"}
+export ELGG_EMAIL=${ELGG_EMAIL:-"elgg-admin@${HOSTNAME}"}
 export ELGG_USERNAME=${ELGG_USERNAME:-"admin"}
 export ELGG_PASSWORD=${ELGG_PASSWORD:-$(pwgen -s 12 1)}
 
@@ -55,6 +55,8 @@ export ELGG_SITE_ACCESS=2
 # rewrite 
 sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILESIZE}/" \
     -e "s/^post_max_size.*/post_max_size = ${PHP_POST_MAX_SIZE}/" /etc/php5/apache2/php.ini
+
+. rewrite-sendmail.sh
 
 # test MySQL and set up if needed
 VOLUME_HOME="/var/lib/mysql"

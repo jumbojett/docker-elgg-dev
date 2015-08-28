@@ -31,8 +31,7 @@ class GetHost {
 		$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 		$cutoff = strpos($uri, 'install.php');
 		$uri = substr($uri, 0, $cutoff);
-		$serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
-
-		return "$protocol://{$serverName}$port{$uri}";
+		$serverName = getenv('HOSTNAME')!==false ? getenv('HOSTNAME') : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '');
+		return "$protocol://{$serverName}$port{$uri}";	
 	}
 }
