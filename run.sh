@@ -71,9 +71,6 @@ else
     echo "=> Using an existing volume of MySQL"
 fi
 
-#start mysql so we can check if elgg is installed.
-service mysql start
-
 echo "Testing Elgg installation"
 php /check_install.php 
 
@@ -113,11 +110,6 @@ if [ "$?" -ne 0 ]; then
     fi
 fi
 
-# stop again so the main process can manage it.
-#service mysql stop
-# the debian mysql user's password is wrong
-mysqladmin shutdown
-
 if [ "${SHOW_CREDENTIALS}" -eq 1 ]; then
     echo "Elgg and MySQL have been installed with the following credentials:"
     echo "  Elgg admin username: ${ELGG_USERNAME}"
@@ -127,4 +119,5 @@ if [ "${SHOW_CREDENTIALS}" -eq 1 ]; then
 fi
 
 # start all services
-exec supervisord -n
+sv start mysql
+ln -s /etc/sv/apache2 /etc/service/apache2

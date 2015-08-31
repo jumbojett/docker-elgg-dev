@@ -4,9 +4,6 @@ MAINTAINER Mike Jett <mjett@mitre.org>
 # Install packages
 RUN apt-get update && apt-get -y install phpmyadmin php5-xdebug
 
-# package install is finished, clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # install custom config files
 ADD xdebug.ini /etc/php5/mods-available/xdebug.ini
 
@@ -26,7 +23,7 @@ RUN curl -sSL https://deb.nodesource.com/setup | bash && apt-get install -yq nod
 RUN npm config set strict-ssl false --global && npm install -g npm
 
 # clean up tmp files (we don't need them for the image)
-RUN rm -rf /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add volume for elgg
 VOLUME  [ "/app" ]
