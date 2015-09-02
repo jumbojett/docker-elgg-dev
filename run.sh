@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # check if we have an elgg mount first
 if [ ! -f /app/composer.json ]; then
     echo "No Elgg composer.json file found. Did you forget to mount /app?"
@@ -60,8 +59,8 @@ sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILE
 
 # test MySQL and set up if needed
 VOLUME_HOME="/var/lib/mysql"
-if [[ ! -f $VOLUME_HOME/ibdata1 ]] && [[ ! -d $VOLUME_HOME/mysql ]]; then
-    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
+if [[ ! -f $VOLUME_HOME/elgg ]] ; then
+#    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
     ls $VOLUME_HOME
     echo "=> Installing MySQL ..."
     mysql_install_db > /dev/null 2>&1
