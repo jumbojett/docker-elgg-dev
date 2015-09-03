@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # check if we have an elgg mount first
 if [ ! -f /app/composer.json ]; then
     echo "No Elgg composer.json file found. Did you forget to mount /app?"
@@ -9,7 +10,7 @@ fi
 export UPDATE_COMPOSER=${UPDATE_COMPOSER:-1}
 if [ $UPDATE_COMPOSER -eq 1 ]; then
 	pushd /app
-	composer update 
+        composer update 
 	popd
 fi
 
@@ -60,8 +61,7 @@ sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILE
 # test MySQL and set up if needed
 VOLUME_HOME="/var/lib/mysql"
 if [[ ! -f $VOLUME_HOME/elgg ]] ; then
-#    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
-    ls $VOLUME_HOME
+    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
     echo "=> Installing MySQL ..."
     mysql_install_db > /dev/null 2>&1
     echo "=> Done!"  
@@ -93,7 +93,7 @@ if [ "$?" -ne 0 ]; then
             echo "Aborting installation because a settings.php file already exists!"
             echo "Remove it or update it with the correct credentials and then try again,"
             echo "or set the env var REINSTALL=1 (docker run -e REINSTALL=1 ...) to overwrite it."
-            exit 1;
+            exit 1
         fi
     else
         echo "Installing Elgg."
